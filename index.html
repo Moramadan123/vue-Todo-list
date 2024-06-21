@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container" id="elzero-app">
+      <form action="">
+        <input type="text" placeholder="Type your task" v-model="tasktext" />
+        <button @click.prevent="addtask" :disabled="!tasktext">Add Task</button>
+        <button class="delete-all" @click="deletetasks">delete All</button>
+        <div class="tasks-list" v-for="(task,index) in tasks">
+          <div class="task-box">
+            {{task.words}}
+            <span @click="deletetask" class="delete">delete</span>
+          </div>
+        </div>
+      </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script>
+      var app = new Vue({
+        el: "#elzero-app",
+        data: {
+          tasks: [],
+          tasktext: "",
+        },
+        methods: {
+          addtask() {
+            this.tasks.push({ words: this.tasktext, done: false });
+            this.tasktext = "";
+          },
+          deletetasks(index) {
+            this.tasks = "";
+          },
+          deletetask(index) {
+            this.tasks.splice(index, 1);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
+<style>
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: static;
+    padding: 20px;
+  }
+  .container form {
+    background-color: #ddd;
+    padding: 30px;
+  }
+  .form-group {
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 9px;
+  }
+  .form-group input {
+    padding: 10px 20px;
+    border-radius: 10px;
+    height: 34px;
+  }
+  .task-box {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  .task-box .delete {
+    background-color: red;
+    padding: 4px;
+    cursor: pointer;
+  }
+</style>
